@@ -1,6 +1,6 @@
 ---
-export const prerender = false;
 import { db, AstrojsWebVitals_Metric } from "astro:db";
+import Vital from '../components/Vital.astro'
 const vitals = await db.select().from(AstrojsWebVitals_Metric);
 const { fcp, ttfb, lcp, rest } = vitals.reverse().reduce(
   (accum, vital) => {
@@ -26,92 +26,10 @@ const { fcp, ttfb, lcp, rest } = vitals.reverse().reduce(
 
 <h1>Web Vitals</h1>
 
-<h2>FCP</h2>
-<table>
-  <tr>
-    <th>Pathname</th>
-    <th>Route</th>
-    <th>Value</th>
-    <th>Rating</th>
-    <th>Timestamp</th>
-  </tr>
-  {
-    fcp.map(({ pathname, route, value, rating, timestamp }) => (
-      <tr>
-        <td>{pathname}</td>
-        <td>{route}</td>
-        <td>{value}</td>
-        <td>{rating}</td>
-        <td>{timestamp}</td>
-      </tr>
-    ))
-  }
-</table>
+<Vital name="FCP" contents={fcp} />
 
-<h2>TTFB</h2>
-<table>
-  <tr>
-    <th>Pathname</th>
-    <th>Route</th>
-    <th>Value</th>
-    <th>Rating</th>
-    <th>Timestamp</th>
-  </tr>
-  {
-    ttfb.map(({ pathname, route, value, rating, timestamp }) => (
-      <tr>
-        <td>{pathname}</td>
-        <td>{route}</td>
-        <td>{value}</td>
-        <td>{rating}</td>
-        <td>{timestamp}</td>
-      </tr>
-    ))
-  }
-</table>
+<Vital name="TTFB" contents={ttfb} />
 
-<h2>LCP</h2>
-<table>
-  <tr>
-    <th>Pathname</th>
-    <th>Route</th>
-    <th>Value</th>
-    <th>Rating</th>
-    <th>Timestamp</th>
-  </tr>
-  {
-    lcp.map(({ pathname, route, value, rating, timestamp }) => (
-      <tr>
-        <td>{pathname}</td>
-        <td>{route}</td>
-        <td>{value}</td>
-        <td>{rating}</td>
-        <td>{timestamp}</td>
-      </tr>
-    ))
-  }
-</table>
+<Vital name="LCP" contents={lcp} />
 
-<h2>Not yet split out</h2>
-<table>
-  <tr>
-    <th>Pathname</th>
-    <th>Route</th>
-    <th>Name</th>
-    <th>Value</th>
-    <th>Rating</th>
-    <th>Timestamp</th>
-  </tr>
-  {
-    rest.map(({ pathname, route, name, value, rating, timestamp }) => (
-      <tr>
-        <td>{pathname}</td>
-        <td>{route}</td>
-        <td>{name}</td>
-        <td>{value}</td>
-        <td>{rating}</td>
-        <td>{timestamp}</td>
-      </tr>
-    ))
-  }
-</table>
+<Vital name="Everything else" contents={rest} />
