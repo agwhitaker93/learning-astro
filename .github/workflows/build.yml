@@ -20,6 +20,8 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run check
+        env:
+          ASTRO_DATABASE_FILE: ./build-check.db
         run: npm run ${{ matrix.job }}
 
   tag-version:
