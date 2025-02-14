@@ -1,5 +1,5 @@
 name: Deploy
-run-name: format('Deploying "{0}"', github.ref_name)
+run-name: ${{ format('Deploying "{0}"', github.ref_name) }}
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v4
         with:
-          node-version: '23'
+          node-version: "23"
       - name: Install dependencies
         run: npm install
       - name: Deploy to CF Pages
