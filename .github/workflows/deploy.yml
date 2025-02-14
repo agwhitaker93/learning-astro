@@ -1,5 +1,5 @@
 name: Deploy
-run-name: ${{ format('Deploying "{0}"', github.ref_name) }}
+run-name: ${{ format('Deploying {0}', github.ref_name) }}
 
 on:
   workflow_dispatch:
