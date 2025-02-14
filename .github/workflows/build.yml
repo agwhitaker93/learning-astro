@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  build:
+  checks:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,7 +19,7 @@ jobs:
           node-version: '23'
       - name: Install dependencies
         run: npm install
-      - name: Run build check
+      - name: Run check
         run: npm run ${{ matrix.job }}
 
   tag-version:
