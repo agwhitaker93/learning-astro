@@ -5,10 +5,14 @@ import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import cloudflare from '@astrojs/cloudflare';
 
+import webVitals from '@astrojs/web-vitals';
+
+import db from '@astrojs/db';
+
 // https://astro.build/config
 export default defineConfig({
   //output: 'server',
-  integrations: [react()],
+  integrations: [react(), webVitals(), db()],
 
   vite: {
     plugins: [tailwindcss()]
