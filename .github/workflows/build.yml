@@ -1,0 +1,45 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        job:
+          - build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23'
+      - name: Install dependencies
+        run: npm install
+      - name: Run build check
+        run: npm run ${{ matrix.job }}
+
+  tag-version:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23'
+      - name: Tag new version
+        run: |
+          git reset --hard
+          git config --global user.name "${{github.triggering_actor}}"
+          git config --global user.email "${{github.actor}}@users.noreply.github.com"
+          npm version patch -m 'Bump version to %s [skip ci]'
+          git push --no-verify
+          git push --no-verify --tags

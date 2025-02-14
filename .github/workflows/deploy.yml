@@ -1,0 +1,31 @@
+name: Deploy
+run-name: format('Deploying "{0}"', github.ref_name)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if not deploying tag
+        if: ${{ !startsWith(github.ref, 'refs/tags') }}
+        run: |
+          echo "Please deploy a tag"
+          exit 1
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23'
+      - name: Install dependencies
+        run: npm install
+      - name: Deploy to CF Pages
+        if: ${{ startsWith(github.ref, 'refs/tags') }}
+        run: bun run pages:deploy
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ASTRO_DB_REMOTE_URL: ${{ secrets.ASTRO_DB_REMOTE_URL }}
+          ASTRO_DB_APP_TOKEN: ${{ secrets.ASTRO_DB_APP_TOKEN }}
