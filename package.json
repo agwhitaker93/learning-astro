@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.5",
   "scripts": {
+    "lint": "prettier . --check",
     "format": "prettier . --write",
     "dev": "astro dev",
     "build": "astro build",
