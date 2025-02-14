@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         job:
-          # - build
+          - astro
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
