@@ -24,7 +24,7 @@ jobs:
           ASTRO_DATABASE_FILE: ./build-check.db
         run: npm run ${{ matrix.job }}
 
-  tag-version:
+  deploy:
     needs: checks
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -37,11 +37,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "23"
-      - name: Tag new version
-        run: |
-          git reset --hard
-          git config --global user.name "${{github.triggering_actor}}"
-          git config --global user.email "${{github.actor}}@users.noreply.github.com"
-          npm version patch -m 'Bump version to %s [skip ci]'
-          git push --no-verify
-          git push --no-verify --tags
+      - name: Install dependencies
+        run: npm install
+      - name: Deploy to CF Pages
+        if: ${{ startsWith(github.ref, 'refs/tags') }}
+        run: npm run deploy
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ASTRO_DB_REMOTE_URL: ${{ secrets.ASTRO_DB_REMOTE_URL }}
+          ASTRO_DB_APP_TOKEN: ${{ secrets.ASTRO_DB_APP_TOKEN }}
+          BRANCH: main
