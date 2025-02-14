@@ -1,6 +1,6 @@
 ---
 import { db, AstrojsWebVitals_Metric } from "astro:db";
-import Vital from '../components/Vital.astro'
+import Vital from "../components/Vital.astro";
 const vitals = await db.select().from(AstrojsWebVitals_Metric);
 const { fcp, ttfb, lcp, rest } = vitals.reverse().reduce(
   (accum, vital) => {
