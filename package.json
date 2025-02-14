@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "astro build && wrangler pages deploy dist --project-name computer-speaker-learning-astro --branch main"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.2.1",

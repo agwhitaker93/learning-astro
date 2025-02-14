@@ -1,0 +1,23 @@
+---
+import data from "../../data/dinosaurs.json";
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Dinosaurs</title>
+    </head>
+    <body>
+        <h1>Dinosaurs</h1>
+        <ul>
+            {data.map((dinosaur) => (
+                <li>
+                    <a href={`/${dinosaur.name.toLowerCase()}`}>{ dinosaur.name }</a>
+                </li>
+            ))}
+        </ul>
+    </body>
+</html>
