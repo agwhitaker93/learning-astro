@@ -20,12 +20,12 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run check
-        run: npm run ${{ matrix.job }}
         env:
-          ASTRO_DATABASE_FILE: "./build-check.db"
+          ASTRO_DATABASE_FILE: ./build-check.db
+        run: npm run ${{ matrix.job }}
 
   tag-version:
-    needs: build
+    needs: checks
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
