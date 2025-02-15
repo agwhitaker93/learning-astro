@@ -11,34 +11,35 @@ import Vital from "../../components/Vital.astro";
 
 const vitals = await db.select().from(AstrojsWebVitals_Metric);
 
-const possibleVitals = [
-	"ttfb",
-	"cls",
-	"fcp",
-	"lcp",
-	"fid",
-	"inp",
-]
+const possibleVitals = ["ttfb", "cls", "fcp", "lcp", "fid", "inp"];
 
 const chosenVital = vitals.reverse().filter((vital) => {
-	if (possibleVitals.indexOf(vital.name.toLowerCase()) === -1) {
-		console.warn(`Found vital not covered in expected value: ${vital.name.toLowerCase()}`)
-	}
-	return vital.name.toLowerCase() === vitalName.toLowerCase();
+  if (possibleVitals.indexOf(vital.name.toLowerCase()) === -1) {
+    console.warn(
+      `Found vital not covered in expected value: ${vital.name.toLowerCase()}`,
+    );
+  }
+  return vital.name.toLowerCase() === vitalName.toLowerCase();
 });
 ---
 
 <head>
-    <ClientRouter />
+  <ClientRouter />
 </head>
 
 <Layout>
-	<div role="tablist" class="tabs tabs-lifted">
-		{
-		possibleVitals.map((possibleVital) => (
-		<a role="tab" class=`tab ${possibleVital === vitalName ? 'tab-active' : ''}` href=`/web-vitals/${possibleVital}`>{possibleVital.toUpperCase()}</a>
-		))
-		}
-	</div>
-	<Vital contents={chosenVital} />
+  <div role="tablist" class="tabs tabs-lifted">
+    {
+      possibleVitals.map((possibleVital) => (
+        <a
+          role="tab"
+          class={possibleVital === vitalName ? "tab tab-active" : "tab"}
+          href={`/web-vitals/${possibleVital}`}
+        >
+          {possibleVital.toUpperCase()}
+        </a>
+      ))
+    }
+  </div>
+  <Vital contents={chosenVital} />
 </Layout>

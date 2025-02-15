@@ -4,19 +4,19 @@ import data from "../../data/dinosaurs.json";
 ---
 
 <Layout>
-	<h1 class="text-3xl">Dinosaurs</h1>
-	<ul>
-		{
-			data.map((dinosaur) => (
-				<li>
-					<a
-						class="btn btn-outline btn-accent m-2"
-						href={`/${dinosaur.name.toLowerCase()}`}
-					>
-						{dinosaur.name}
-					</a>
-				</li>
-			))
-		}
-	</ul>
+  <h1 class="text-3xl">Dinosaurs</h1>
+  <ul>
+    {
+      data.map((dinosaur) => (
+        <li>
+          <a
+            class="btn btn-outline btn-accent m-2"
+            href={`/${dinosaur.name.toLowerCase()}`}
+          >
+            {dinosaur.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </Layout>
