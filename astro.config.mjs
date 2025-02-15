@@ -9,6 +9,9 @@ import webVitals from "@astrojs/web-vitals";
 
 // https://astro.build/config
 export default defineConfig({
+	redirects: {
+		"/web-vitals": "/web-vitals/fcp"
+	},
   adapter: cloudflare({
     platformProxy: {
       enabled: true,

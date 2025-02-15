@@ -1,0 +1,36 @@
+---
+export const prerender = false;
+
+import { ClientRouter } from "astro:transitions";
+import Layout from "../../layouts/Layout.astro";
+
+const { vital: vitalName } = Astro.params;
+
+import { db, AstrojsWebVitals_Metric } from "astro:db";
+import Vital from "../../components/Vital.astro";
+
+const vitals = await db.select().from(AstrojsWebVitals_Metric);
+
+const chosenVital = vitals.reverse().filter((vital) => {
+	return vital.name.toLowerCase() === vitalName.toLowerCase();
+});
+
+const possibleVitals = [
+	"fcp", "ttfb", "lcp", "rest"
+]
+---
+
+<head>
+    <ClientRouter />
+</head>
+
+<Layout>
+	<div role="tablist" class="tabs tabs-lifted">
+		{
+		possibleVitals.map((possibleVital) => (
+		<a role="tab" class=`tab ${possibleVital === vitalName ? 'tab-active' : ''}` href=`/web-vitals/${possibleVital}`>{possibleVital.toUpperCase()}</a>
+		))
+		}
+	</div>
+	<Vital contents={chosenVital} />
+</Layout>

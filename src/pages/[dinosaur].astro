@@ -1,5 +1,8 @@
 ---
 export const prerender = false;
+import Layout from "../layouts/Layout.astro";
+import dinosaurImg from "../assets/dinosaur.png";
+
 import data from "../../data/dinosaurs.json";
 const { dinosaur } = Astro.params;
 const dinosaurObj = data.find((item) => item.name.toLowerCase() === dinosaur);
@@ -7,8 +10,18 @@ if (!dinosaurObj) return Astro.redirect("/404");
 const { name, description } = dinosaurObj;
 ---
 
-<h1>{name}</h1>
+<Layout>
+	<h1 class="text-3xl">{name}</h1>
 
-<p>
-  {description}
-</p>
+	<div class="chat chat-start">
+		<div class="chat-image avatar">
+			<div class="w-10 rounded-full bg-primary">
+				<img
+					alt="Tailwind CSS chat bubble component"
+					src={dinosaurImg.src}
+				/>
+			</div>
+		</div>
+		<div class="chat-bubble">{description}</div>
+	</div>
+</Layout>

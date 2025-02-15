@@ -1,26 +1,27 @@
 ---
 export const prerender = false;
-const { name, contents } = Astro.props;
+const { contents } = Astro.props;
 ---
 
-<h2>{name}</h2>
-<table>
-  <tr>
-    <th>Pathname</th>
-    <th>Route</th>
-    <th>Value</th>
-    <th>Rating</th>
-    <th>Timestamp</th>
-  </tr>
-  {
-    contents.map(({ pathname, route, value, rating, timestamp }) => (
-      <tr>
-        <td>{pathname}</td>
-        <td>{route}</td>
-        <td>{value}</td>
-        <td>{rating}</td>
-        <td>{timestamp}</td>
-      </tr>
-    ))
-  }
-</table>
+<div class="overflow-x-auto">
+  <table class="table table-zebra">
+    <tr>
+      <th>Pathname</th>
+      <th>Route</th>
+      <th>Value</th>
+      <th>Rating</th>
+      <th>Timestamp</th>
+    </tr>
+    {
+      contents.map(({ pathname, route, value, rating, timestamp }) => (
+        <tr>
+          <td>{pathname}</td>
+          <td>{route}</td>
+          <td>{value}</td>
+          <td>{rating}</td>
+          <td>{timestamp}</td>
+        </tr>
+      ))
+    }
+  </table>
+</div>
