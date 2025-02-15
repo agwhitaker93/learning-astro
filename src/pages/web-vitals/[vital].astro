@@ -11,13 +11,21 @@ import Vital from "../../components/Vital.astro";
 
 const vitals = await db.select().from(AstrojsWebVitals_Metric);
 
+const possibleVitals = [
+	"ttfb",
+	"cls",
+	"fcp",
+	"lcp",
+	"fid",
+	"inp",
+]
+
 const chosenVital = vitals.reverse().filter((vital) => {
+	if (possibleVitals.indexOf(vital.name.toLowerCase()) === -1) {
+		console.warn(`Found vital not covered in expected value: ${vital.name.toLowerCase()}`)
+	}
 	return vital.name.toLowerCase() === vitalName.toLowerCase();
 });
-
-const possibleVitals = [
-	"fcp", "ttfb", "lcp", "rest"
-]
 ---
 
 <head>
