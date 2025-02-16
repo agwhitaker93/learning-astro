@@ -1,11 +1,42 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Test from "../components/Test.jsx";
+import Scaffold from "../components/Scaffold.jsx";
+import ReactInput from "../components/ReactInput.jsx";
+import AstroInput from "../components/AstroInput.astro";
+import AstroInputClient from "../components/AstroInputClient.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-  <Test />
+  <h1 class="text-xl">Plain</h1>
+  <Scaffold>
+    <ReactInput />
+  </Scaffold>
+  <br />
+  <h1 class="text-xl">client:load on parent</h1>
+  <Scaffold client:load>
+    <ReactInput />
+  </Scaffold>
+  <br />
+  <h1 class="text-xl">client:load on child</h1>
+  <Scaffold>
+    <ReactInput client:load />
+  </Scaffold>
+  <br />
+  <h1 class="text-xl">Astro wrapping react input</h1>
+  <Scaffold>
+    <AstroInput />
+  </Scaffold>
+  <br />
+  <h1 class="text-xl">Astro wrapping react input with client:load</h1>
+  <Scaffold>
+    <AstroInput client:load />
+  </Scaffold>
+  <br />
+	<h1 class="text-xl">Astro wrapping react input without client:load, but the wrapped input has client:load</h1>
+  <Scaffold>
+    <AstroInputClient />
+  </Scaffold>
 </Layout>

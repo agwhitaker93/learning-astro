@@ -1,3 +1,41 @@
+---
+const possibleVitals = ["ttfb", "cls", "fcp", "lcp", "fid", "inp"];
+const themeList = [
+  "light",
+  "dark",
+  "cupcake",
+  "bumblebee",
+  "emerald",
+  "corporate",
+  "synthwave",
+  "retro",
+  "cyberpunk",
+  "valentine",
+  "halloween",
+  "garden",
+  "forest",
+  "aqua",
+  "lofi",
+  "pastel",
+  "fantasy",
+  "wireframe",
+  "black",
+  "luxury",
+  "dracula",
+  "cmyk",
+  "autumn",
+  "business",
+  "acid",
+  "lemonade",
+  "night",
+  "coffee",
+  "winter",
+  "dim",
+  "nord",
+  "sunset",
+];
+---
+
 <div class="navbar bg-base-100 shadow-sm">
   <div class="navbar-start">
     <div class="dropdown">
@@ -21,7 +59,16 @@
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
       >
         <li>
-          <a href="/web-vitals">Web Vitals</a>
+          Web Vitals
+          <ul class="p-2">
+            {
+              possibleVitals.map((vital) => (
+                <li>
+                  <a href={`/web-vitals/${vital}`}>{vital.toUpperCase()}</a>
+                </li>
+              ))
+            }
+          </ul>
         </li>
         <li><a href="/dinosaurs">Dinosaurs</a></li>
       </ul>
@@ -31,10 +78,55 @@
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
       <li>
-        <a href="/web-vitals">Web Vitals</a>
+        <details>
+          <summary>Web Vitals</summary>
+          <ul class="p-2">
+            {
+              possibleVitals.map((vital) => (
+                <li>
+                  <a href={`/web-vitals/${vital}`}>{vital.toUpperCase()}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </details>
       </li>
       <li><a href="/dinosaurs">Dinosaurs</a></li>
     </ul>
   </div>
-  <div class="navbar-end"></div>
+  <div class="navbar-end">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn m-1">
+        Theme
+        <svg
+          width="12px"
+          height="12px"
+          class="inline-block h-2 w-2 fill-current opacity-60"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 2048 2048"
+        >
+          <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"
+          ></path>
+        </svg>
+      </div>
+      <ul
+        tabindex="0"
+        class="dropdown-content bg-base-300 rounded-box z-[1] w-52 p-2 shadow-2xl"
+      >
+        {
+          themeList.map((theme) => (
+            <li>
+              <input
+                type="radio"
+                name="theme-dropdown"
+                class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                aria-label={theme.slice(0, 1).toUpperCase() + theme.slice(1)}
+                value={theme}
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
 </div>

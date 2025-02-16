@@ -11,14 +11,16 @@ const { name, description } = dinosaurObj;
 ---
 
 <Layout>
-  <h1 class="text-3xl">{name}</h1>
+  <div class="mx-2">
+    <h1 class="text-3xl text-center underline">{name}</h1>
 
-  <div class="chat chat-start">
-    <div class="chat-image avatar">
-      <div class="w-10 rounded-full bg-primary">
-        <img alt="Tailwind CSS chat bubble component" src={dinosaurImg.src} />
+    <div class="chat chat-start">
+      <div class="chat-image avatar">
+        <div class="w-10 rounded-full bg-secondary p-1">
+          <img alt="Tailwind CSS chat bubble component" src={dinosaurImg.src} />
+        </div>
       </div>
+      <div class="chat-bubble bg-primary text-primary-content">{description}</div>
     </div>
-    <div class="chat-bubble">{description}</div>
   </div>
 </Layout>
