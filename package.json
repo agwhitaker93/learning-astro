@@ -6,10 +6,10 @@
     "lint": "prettier . --check",
     "format": "prettier . --write",
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro build && wrangler pages dev",
+    "build": "astro build --remote",
+    "preview": "ASTRO_DATABASE_FILE=./.astro/content.db astro build && wrangler pages dev",
     "astro": "astro",
-    "deploy": "astro build --remote && wrangler pages deploy",
+    "deploy": "npm run build && wrangler pages deploy",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
